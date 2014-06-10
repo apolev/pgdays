@@ -1,0 +1,20 @@
+{
+    "name": "apolev/pgdays",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "miknatr/grace-dbal": "dev-master",
+        "stiffbeards/bravicility": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "": ["src", "tests"]
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@bitbucket.org:stiffbeards/bravicility.git"
+        }
+    ]
+}

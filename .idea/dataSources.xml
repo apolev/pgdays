@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="1782615974">
+    <data-source source="LOCAL" name="PostgreSQL - pgdays@localhost" uuid="0860c699-6408-4bfe-a4f1-acec64cc8c20">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/pgdays</jdbc-url>
+      <user-name>postgres</user-name>
+      <user-password>df9b</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
