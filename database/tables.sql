@@ -55,6 +55,7 @@ COMMENT ON COLUMN departments.deleted_at IS 'Дата удаления';
 
 
 CREATE TABLE departments_employees (
+  id SERIAL PRIMARY KEY,
   department_id INTEGER NOT NULL,
   employee_id INTEGER NOT NULL,
   linked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0)

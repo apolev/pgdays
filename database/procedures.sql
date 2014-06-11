@@ -29,8 +29,20 @@ CREATE OR REPLACE FUNCTION "add_employee_to_department" (department_id integer, 
 $body$
   DECLARE result integer := null;
   BEGIN
+    INSERT INTO "departments_employees" (department_id, employee_id)
+    VALUES (department_id, employee_id)
+    RETURNING id INTO result;
+    RETURN result;
   END;
 $body$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION "add_login" (login varchar, password varchar)
+  RETURNS integer AS
+  $body$
+  DECLARE result integer := null;
+  BEGIN
+  END;
+  $body$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION "add_employee" (title varchar, department_id integer)
   RETURNS integer AS
