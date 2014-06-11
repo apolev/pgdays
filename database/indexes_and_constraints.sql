@@ -9,6 +9,21 @@ ALTER TABLE departments_employees
   FOREIGN KEY (department_id) REFERENCES departments (id)
 ;
 
+CREATE UNIQUE INDEX department_employees_emp_dep_uq_idx
+  ON departments_employees
+  USING BTREE (department_id, employee_id)
+;
+
+CREATE UNIQUE INDEX departments_title_uq_idx
+  ON departments
+  USING BTREE (title)
+;
+
+CREATE UNIQUE INDEX employees_title_uq_idx
+  ON employees
+  USING BTREE (title)
+;
+
 -- Индексы
 CREATE INDEX department_employees_employee_id_fkey_idx
   ON departments_employees
@@ -18,9 +33,4 @@ CREATE INDEX department_employees_employee_id_fkey_idx
 CREATE INDEX department_employees_department_id_fkey_idx
   ON departments_employees
   USING BTREE (department_id)
-;
-
-CREATE UNIQUE INDEX department_employees_emp_dep_uq_idx
-  ON departments_employees
-  USING BTREE (department_id, employee_id)
 ;
