@@ -32,4 +32,17 @@ $body$
   END;
 $body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "add_employee" (title varchar, department_id integer)
+  RETURNS integer AS
+$body$
+  DECLARE result integer := null;
+    link_id integer := null;
+  BEGIN
+    START TRANSACTION;
+      result := add_employee(title);
+      link_id := add_employee_to_department(department_id, result);
+      RETURN result;
+    COMMIT;
+  END;
+$body$ LANGUAGE plpgsql;
 COMMIT;
