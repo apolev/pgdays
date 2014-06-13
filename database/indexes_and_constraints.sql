@@ -24,6 +24,11 @@ CREATE UNIQUE INDEX employees_title_uq_idx
   USING BTREE (title)
 ;
 
+CREATE UNIQUE INDEX logins_login_uq_idx
+  ON logins
+  USING BTREE (login)
+;
+
 -- Индексы
 CREATE INDEX department_employees_employee_id_fkey_idx
   ON departments_employees

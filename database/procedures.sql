@@ -40,7 +40,13 @@ CREATE OR REPLACE FUNCTION "add_login" (login varchar, password varchar)
   RETURNS integer AS
   $body$
   DECLARE result integer := null;
+    salt varchar := null;
   BEGIN
+    salt = RANDOM()::varchar;
+    INSERT INTO logins(login, password, salt)
+      VALUES (login, md5(password||salt), salt)
+    RETURNING id INTO result;
+    RETURN result;
   END;
   $body$ LANGUAGE plpgsql;
 

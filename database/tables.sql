@@ -21,8 +21,8 @@ COMMENT ON COLUMN employees.deleted_at IS 'Дата удаления';
 CREATE TABLE logins (
     id SERIAL PRIMARY KEY,
     login VARCHAR NOT NULL,
-    password CHAR(32),
-    salt CHAR(32),
+    password CHAR(32) NOT NULL,
+    salt CHAR(19) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0),
     is_deleted BOOLEAN DEFAULT FALSE,
     deleted_at TIMESTAMP

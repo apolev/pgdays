@@ -2,6 +2,14 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+$requiredDirs = ['cache', 'logs'];
+foreach ($requiredDirs as $dir) {
+    $path = __DIR__ . '/' . $dir;
+    if (!is_dir($path)) {
+        mkdir($path);
+    }
+}
+
 $container = new Container();
 $db        = $container->getDb();
 $dbDir     = __DIR__ . '/database/';
