@@ -14,5 +14,5 @@ SELECT add_employee_to_department(1, 2);
 SELECT add_employee_to_department(2, 3);
 SELECT add_employee_to_department(3, 3);
 
-SELECT add_login('admin', '12345');
+SELECT add_login('pgdays', 'security');
 COMMIT;

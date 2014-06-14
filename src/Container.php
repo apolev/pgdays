@@ -3,12 +3,14 @@
 use Bravicility\Container\DbContainerTrait;
 use Bravicility\Container\LoggingContainerTrait;
 use Bravicility\Container\RouterContainerTrait;
+use Bravicility\Container\TwigContainerTrait;
 
 class Container
 {
     use DbContainerTrait;
     use LoggingContainerTrait;
     use RouterContainerTrait;
+    use TwigContainerTrait;
 
     private $config = [];
 
@@ -18,6 +20,7 @@ class Container
         $this->loadDbConfig($this->config);
         $this->loadRouterConfig($this->config, $this->getRootDirectory());
         $this->loadLoggingConfig($this->config, $this->getRootDirectory());
+        $this->loadTwigConfig($this->config, $this->getRootDirectory());
     }
 
     public function getRootDirectory()

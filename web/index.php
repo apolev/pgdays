@@ -2,11 +2,13 @@
 
 use Bravicility\Failure\FailureHandler;
 use Bravicility\Http\Request;
+use Bravicility\Http\Response\RedirectResponse;
 use Bravicility\Http\Response\Response;
 use Bravicility\Http\Response\TextResponse;
 use Bravicility\Router\RouteNotFoundException;
 
 require_once __DIR__ . '/../vendor/autoload.php';
+session_start();
 
 $container = new Container();
 $logger    = $container->getErrorLogger();
@@ -28,6 +30,8 @@ try {
     $response = new Response(404);
 } catch (BadRequestException $e) {
     $response = new Response(400, $e->getMessage());
+} catch (AuthorizationException $e) {
+    $response = new RedirectResponse('/auth');
 }
 
 $response->send();

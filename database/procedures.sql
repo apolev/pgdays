@@ -64,3 +64,18 @@ $body$
   END;
 $body$ LANGUAGE plpgsql;
 COMMIT;
+
+CREATE OR REPLACE FUNCTION "check_and_get_login" (checked_login varchar, checked_password varchar)
+  RETURNS "logins" AS
+$body$
+DECLARE result "logins";
+    BEGIN
+      SELECT id, login, password
+      FROM logins
+      WHERE "login" = checked_login
+            AND "password" = md5(checked_password||salt)
+            AND NOT is_deleted
+      INTO result;
+      RETURN result;
+    END;
+$body$ LANGUAGE plpgsql;
