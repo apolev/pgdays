@@ -65,17 +65,18 @@ $body$
 $body$ LANGUAGE plpgsql;
 COMMIT;
 
+DROP FUNCTION IF EXISTS "check_and_get_login"(varchar, varchar);
+
 CREATE OR REPLACE FUNCTION "check_and_get_login" (checked_login varchar, checked_password varchar)
-  RETURNS "logins" AS
+  RETURNS TABLE(id int, login varchar) AS
 $body$
-DECLARE result "logins";
     BEGIN
-      SELECT id, login, password
-      FROM logins
-      WHERE "login" = checked_login
-            AND "password" = md5(checked_password||salt)
-            AND NOT is_deleted
-      INTO result;
-      RETURN result;
+      RETURN QUERY
+        SELECT l.id, l.login
+        FROM logins AS l
+        WHERE l."login" = checked_login
+              AND l."password" = md5(checked_password||salt)
+              AND NOT is_deleted
+      ;
     END;
 $body$ LANGUAGE plpgsql;

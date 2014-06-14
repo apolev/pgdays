@@ -1,3 +1,9 @@
 #login ul li {
     list-style-type: none;
 }
+
+div.error {
+    padding: 20px;
+    border: 2px dashed red;
+    width: 250px;
+}

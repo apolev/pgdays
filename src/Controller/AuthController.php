@@ -4,6 +4,7 @@ namespace Controller;
 
 use Bravicility\Http\Request;
 use Bravicility\Http\Response\HtmlResponse;
+use Bravicility\Http\Response\RedirectResponse;
 
 class AuthController extends ControllerAbstract
 {
@@ -26,9 +27,7 @@ class AuthController extends ControllerAbstract
             array($request->post('login'), $request->post('password'))
         )->fetchOneOrFalse();
 
-        var_dump($loginData);
-        die();
-        if (!$loginData) {
+        if (empty($loginData['id'])) {
             return new HtmlResponse(400, $this->twig->render(
                 'login.twig',
                 array('error_message' => 'Неверный логин или пароль.')
@@ -38,5 +37,14 @@ class AuthController extends ControllerAbstract
         $_SESSION['login_id'] = $loginData['id'];
 
         return new RedirectResponse('/');
+    }
+
+    /**
+     * @route GET /logout
+     */
+    public function logout()
+    {
+        $_SESSION['login_id'] = null;
+        return new RedirectResponse('/auth');
     }
 }
