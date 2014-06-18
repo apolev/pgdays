@@ -14,7 +14,7 @@ class AuthController extends ControllerAbstract
      */
     public function getAuthForm()
     {
-        return new HtmlResponse(200, $this->twig->render('login.twig'));
+        return new HtmlResponse(200, $this->twig->render('login.twig', array('error_message' => '')));
     }
 
     /**

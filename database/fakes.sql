@@ -15,4 +15,5 @@ SELECT add_employee_to_department(2, 3);
 SELECT add_employee_to_department(3, 3);
 
 SELECT add_login('pgdays', 'security');
+
 COMMIT;
