@@ -41,4 +41,9 @@ class Container
             throw new \LogicException(implode("\n", $undefinedMessages));
         }
     }
+
+    public function getHost()
+    {
+
+    }
 }
