@@ -12,13 +12,13 @@ $body$
   END;
 $body$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION "get_departments" ("limit" integer = null)
-  RETURNS "departments".TABLE AS
+CREATE OR REPLACE FUNCTION "get_departments" ("limit" integer default null)
+  RETURNS SETOF "departments" AS
   $body$
   BEGIN
     RETURN QUERY
-      SELECT id, title
-      FROM department
+      SELECT *
+      FROM departments
       WHERE NOT is_deleted
       LIMIT "limit"
     ;

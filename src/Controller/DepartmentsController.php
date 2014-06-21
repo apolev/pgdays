@@ -12,7 +12,7 @@ class DepartmentsController extends ControllerAbstract
     public function index()
     {
         $db = $this->container->getDb();
-        $db->execute('get_departments()');
+        $db->execute(' SELECT * FROM get_departments()');
         return new HtmlResponse(200, $this->twig->render('departments.twig'));
     }
 }

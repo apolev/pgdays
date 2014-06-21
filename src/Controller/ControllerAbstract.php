@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use AuthorizationException;
 use Container;
 use Twig_Environment;
 
