@@ -1,5 +1,6 @@
 <?php
 
+use Browser\TestBrowserTrait;
 use Grace\DBAL\ConnectionAbstract\ConnectionInterface;
 
 class TestAbstract extends \PHPUnit_Framework_TestCase
