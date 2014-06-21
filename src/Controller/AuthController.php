@@ -8,6 +8,7 @@ use Bravicility\Http\Response\RedirectResponse;
 
 class AuthController extends ControllerAbstract
 {
+    protected $disableAuthCheck = true;
 
     /**
      * @route GET /auth

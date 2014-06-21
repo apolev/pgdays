@@ -12,6 +12,19 @@ $body$
   END;
 $body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "get_departments" ("limit" integer = null)
+  RETURNS "departments".TABLE AS
+  $body$
+  BEGIN
+    RETURN QUERY
+      SELECT id, title
+      FROM department
+      WHERE NOT is_deleted
+      LIMIT "limit"
+    ;
+  END;
+$body$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION "add_employee" (title varchar)
   RETURNS integer AS
 $body$

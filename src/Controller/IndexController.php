@@ -12,20 +12,6 @@ use Twig_Environment;
 
 class IndexController extends ControllerAbstract
 {
-    public function __construct(Container $container)
-    {
-        parent::__construct($container);
-        $this->checkAuthorization();
-    }
-
-    private function checkAuthorization()
-    {
-        $loginId = !empty($_SESSION['login_id']) ? $_SESSION['login_id'] : null;
-        if (!$loginId) {
-            throw new AuthorizationException();
-        }
-    }
-
     /**
      * @route GET /
      */
