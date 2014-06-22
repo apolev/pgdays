@@ -1,7 +1,6 @@
 {% extends "layout.twig" %}
 {% block content %}
-
-    <a href="/departments/add">Добавить отдел</a>
+    {% include "departments.add.twig" %}
     <h2>Список отделов.</h2>
     {% if departments %}
         <table>
@@ -15,7 +14,7 @@
             {% for department in departments %}
                 <tr>
                     <td>{{ department.id }}</td>
-                    <td><a href="/departments/{{ department.id }}">{{ department.title | escape }}</a></td>
+                    <td><a href="/departments/edit/?id={{ department.id }}">{{ department.title | escape }}</a></td>
                 </tr>
             {% endfor %}
             </tbody>

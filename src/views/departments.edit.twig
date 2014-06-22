@@ -1,0 +1,34 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <form method="post" action="/departments/edit/">
+        <input type="hidden" name="id" value="{{ department.id }}" />
+        <ul>
+            <li><label for="title">Название:</label></li>
+            <li><input id="title" name="title" type="text" value="{{ department.title | escape }}" /></li>
+            <li><button type="submit">Изменить название</button></li>
+        </ul>
+    </form>
+
+    <h2>Сотрудники: </h2>
+    {% include "departments.add.employee.twig" %}
+    {% if currentEmployees %}
+        <table>
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>Фио</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in currentEmployees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td><a href="/employee/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Список сотрудников отдела пуст.
+    {% endif %}
+{% endblock %}

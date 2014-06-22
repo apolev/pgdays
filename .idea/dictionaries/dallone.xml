@@ -2,6 +2,7 @@
   <dictionary name="dallone">
     <words>
       <w>autoload</w>
+      <w>plpgsql</w>
     </words>
   </dictionary>
 </component>

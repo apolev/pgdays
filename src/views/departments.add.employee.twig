@@ -1,0 +1,18 @@
+{% if availableEmployees %}
+<form method="post">
+    <ul>
+        <li><label for="addEmployee">Выберите сотрудников:</label></li>
+        <li>
+
+            <select multiple>
+            {% for employee in availableEmployees %}
+                <option value="{{ employee.id }}">{{ employee.title }}</option>
+            {% endfor %}
+            </select>
+        </li>
+        <li>
+            <button type="submit">Добавить сотрудников</button>
+        </li>
+    </ul>
+</form>
+{% endif %}
