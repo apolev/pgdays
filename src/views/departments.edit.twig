@@ -12,7 +12,10 @@
     <h2>Сотрудники: </h2>
     {% include "departments.add.employee.twig" %}
     {% if currentEmployees %}
-        <table>
+        <form method="post" action="/departments/employees/remove">
+            <input type="hidden" name="department_id" value="{{ department.id }}" />
+            <button type="submit">Убрать выбранных сотрудников из отдела</button>
+            <table>
             <thead>
             <tr>
                 <td>№</td>
@@ -23,11 +26,15 @@
             {% for employee in currentEmployees %}
                 <tr>
                     <td>{{ employee.id }}</td>
-                    <td><a href="/employee/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a></td>
+                    <td>
+                        <input type="checkbox" name="employee_ids[]" value="{{ employee.id }}" />
+                        <a href="/employee/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        </form>
     {% else %}
         Список сотрудников отдела пуст.
     {% endif %}

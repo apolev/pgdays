@@ -61,13 +61,12 @@ CREATE OR REPLACE FUNCTION "get_available_for_adding_employees" ("lookup_id" int
 $body$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION "edit_department" (lookup_id integer, new_title varchar)
-  RETURNS integer AS
+  RETURNS void AS
   $body$
   BEGIN
     UPDATE departments
     SET title = new_title
     WHERE id = lookup_id;
-    RETURN NULL;
   END;
 $body$ LANGUAGE plpgsql;
 
@@ -94,6 +93,18 @@ $body$
     RETURN result;
   END;
 $body$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION remove_employee_from_department (from_department_id integer, employee_ids integer array)
+  RETURNS void AS
+  $body$
+    BEGIN
+      DELETE FROM departments_employees
+      USING unnest(employee_ids) AS id_to_delete
+      WHERE department_id = from_department_id
+        AND employee_id = id_to_delete
+      ;
+    END;
+  $body$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION "add_login" (login varchar, password varchar)
   RETURNS integer AS

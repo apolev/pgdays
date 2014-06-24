@@ -2,6 +2,7 @@
 
 namespace Controller;
 
+use BadRequestException;
 use Bravicility\Http\Request;
 use Bravicility\Http\Response\HtmlResponse;
 use Bravicility\Http\Response\RedirectResponse;
@@ -67,14 +68,41 @@ class DepartmentsController extends ControllerAbstract
      */
     public function doAddEmployee(Request $request)
     {
+        $employee_ids = $request->post('employee_ids', []);
+        $department   = $this->getDepartment($request->post('department_id'));
+        $db           = $this->container->getDb();
 
+        foreach($employee_ids as $employee_id) {
+            $db->execute('SELECT add_employee_to_department(?q, ?q)', [$department['data']['id'], $employee_id]);
+        }
+
+        return new RedirectResponse('/departments/edit/?id=' . $department['data']['id']);
     }
 
     /**
-     * return array
+     * @route POST /departments/employees/remove
      */
+    public function doRemoveEmployee(Request $request)
+    {
+        $employee_ids = $request->post('employee_ids', []);
+        $department   = $this->getDepartment($request->post('department_id'));
+        $db           = $this->container->getDb();
+
+        $db->execute(
+            'SELECT remove_employee_from_department(?q, array[?l]::integer[])',
+            [$department['data']['id'], $employee_ids]
+        );
+
+        return new RedirectResponse('/departments/edit/?id=' . $department['data']['id']);
+    }
+
     private function getDepartment($id)
     {
+        $id = (int) $id;
+        if (!$id) {
+            throw new BadRequestException();
+        }
+
         $db         = $this->container->getDb();
         $department = $db->execute(
             'SELECT * FROM get_departments(?q)',
