@@ -22,9 +22,17 @@ class EmployeesController extends ControllerAbstract
         return new HtmlResponse(200, $this->twig->render('employees.twig', ['employees' => $employees]));
     }
 
-    public function doAdd()
+    /**
+     * @route POST /employees/add
+     */
+    public function doAdd(Request $request)
     {
+        $db    = $this->container->getDb();
+        $title = $request->post('title');
 
+        $this->container->getDb()->execute('SELECT add_employee(?q)', [$title]);
+
+        return new RedirectResponse('/employees/');
     }
 
     public function edit()
