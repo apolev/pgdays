@@ -23,13 +23,22 @@ class EmployeesController extends ControllerAbstract
     }
 
     /**
+     * @route GET /employees/multi-departments
+     */
+    public function multiDepartments()
+    {
+        $db        = $this->container->getDb();
+        $employees = $db->execute('SELECT * FROM get_employees_with_multi_departments()')->fetchAll();
+
+        return new HtmlResponse(200, $this->twig->render('employees.report.twig', ['employees' => $employees]));
+    }
+
+    /**
      * @route POST /employees/add
      */
     public function doAdd(Request $request)
     {
-        $db    = $this->container->getDb();
         $title = $request->post('title');
-
         $this->container->getDb()->execute('SELECT add_employee(?q)', [$title]);
 
         return new RedirectResponse('/employees/');

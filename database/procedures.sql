@@ -131,6 +131,52 @@ CREATE OR REPLACE FUNCTION "get_employees" ("lookup_id" integer default null, "l
   END;
 $body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "get_employees_with_multi_departments" ()
+    RETURNS TABLE(id integer, title varchar, departments text) AS
+    $body$
+    BEGIN
+        RETURN QUERY
+            WITH dep AS (
+                SELECT employee_id, array_to_string(array_agg(d.title ORDER BY d.title), ', ') AS departments
+                FROM departments_employees
+                INNER JOIN departments AS d
+                    ON d.id = department_id
+                GROUP BY 1
+                HAVING count(*) > 1
+            )
+            SELECT e.id, e.title, dep.departments
+            FROM employees AS e
+            INNER JOIN dep
+                ON dep.employee_id = e.id
+            WHERE NOT is_deleted
+            ORDER BY title
+        ;
+    END;
+$body$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION "get_empty_departments" ()
+    RETURNS SETOF "departments" AS
+    $body$
+    BEGIN
+        RETURN QUERY
+            WITH ids AS (
+                SELECT d.id
+                FROM departments AS d
+                LEFT JOIN departments_employees AS de
+                    ON de.department_id = d.id
+                WHERE NOT d.is_deleted
+                GROUP BY 1
+                HAVING count(de.id) = 0
+            )
+            SELECT d.*
+            FROM departments AS d
+            INNER JOIN ids
+                ON ids.id = d.id
+            ORDER BY title
+        ;
+    END;
+$body$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION "remove_employees" (ids integer array)
     RETURNS void AS
     $body$

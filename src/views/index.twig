@@ -1,8 +1,10 @@
 {% extends "layout.twig" %}
 {% block content %}
-    <menu>
-        <a href="/departments">Отделы</a>
-        <a href="/employees">Сотрудники</a>
-        <a href="/logout" >Выход</a>
-    </menu>
+    <ul>
+        <li><a href="/departments">Отделы</a></li>
+        <li><a href="/employees">Сотрудники</a></li>
+        <li><a href="/employees/multi-departments">Отчет по сотрудникам работающим в двух и более отделах.</a></li>
+        <li><a href="/departments/empty">Отчет по отделам, в которых не числится ни одного сотрудника.</a></li>
+        <li><a href="/logout" >Выход</a></li>
+    </ul>
 {% endblock %}

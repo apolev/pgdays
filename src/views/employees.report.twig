@@ -1,0 +1,30 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <h2>Список сотрудников в двух отделах и более.</h2>
+    {% if employees %}
+        <table>
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>ФИО</td>
+                <td>Отделы</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>
+                        <a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
+                    </td>
+                    <td>
+                        {{ employee.departments }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Список сотрудников пуст.
+    {% endif %}
+{% endblock %}

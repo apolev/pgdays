@@ -112,6 +112,17 @@ class DepartmentsController extends ControllerAbstract
         return new RedirectResponse('/departments/edit/?id=' . $department['data']['id']);
     }
 
+    /**
+     * @route GET /departments/empty
+     */
+    public function getEmpty()
+    {
+        $db          = $this->container->getDb();
+        $departments = $db->execute('SELECT * FROM get_empty_departments()')->fetchAll();
+
+        return new HtmlResponse(200, $this->twig->render('departments.report.twig', ['departments' => $departments]));
+    }
+
     private function getDepartment($id)
     {
         $id = (int) $id;

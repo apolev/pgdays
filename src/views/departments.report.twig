@@ -1,0 +1,26 @@
+{% extends "layout.twig" %}
+{% block content %}
+    <h2>Список пустых отделов.</h2>
+    {% if departments %}
+        <table>
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>Название</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for department in departments %}
+                <tr>
+                    <td>{{ department.id }}</td>
+                    <td>
+                        <a href="/departments/edit/?id={{ department.id }}">{{ department.title | escape }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Список отделов пуст.
+    {% endif %}
+{% endblock %}
