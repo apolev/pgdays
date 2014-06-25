@@ -15,7 +15,7 @@ class AuthController extends ControllerAbstract
      */
     public function getAuthForm()
     {
-        return new HtmlResponse(200, $this->twig->render('login.twig', array('error_message' => '')));
+        return new HtmlResponse(200, $this->twig->render('login.twig', ['error_message' => '']));
     }
 
     /**
@@ -25,13 +25,13 @@ class AuthController extends ControllerAbstract
     {
         $loginData = $this->container->getDb()->execute(
             'SELECT * FROM check_and_get_login(?q, ?q)',
-            array($request->post('login'), $request->post('password'))
+            [$request->post('login'), $request->post('password')]
         )->fetchOneOrFalse();
 
         if (empty($loginData['id'])) {
             return new HtmlResponse(400, $this->twig->render(
                 'login.twig',
-                array('error_message' => 'Неверный логин или пароль.')
+                ['error_message' => 'Неверный логин или пароль.']
             ));
         }
 
