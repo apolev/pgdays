@@ -16,7 +16,7 @@ class EmployeesController extends ControllerAbstract
      */
     public function index()
     {
-        $db          = $this->container->getDb();
+        $db        = $this->container->getDb();
         $employees = $db->execute('SELECT * FROM get_employees()')->fetchAll();
 
         return new HtmlResponse(200, $this->twig->render('employees.twig', ['employees' => $employees]));
@@ -87,7 +87,7 @@ class EmployeesController extends ControllerAbstract
 
     public function getEmployee($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
         if (!$id) {
             throw new BadRequestException();
         }

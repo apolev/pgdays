@@ -1,11 +1,13 @@
 {% extends "layout.twig" %}
 {% block content %}
     <form method="post" action="/departments/edit/">
-        <input type="hidden" name="id" value="{{ department.id }}" />
+        <input type="hidden" name="id" value="{{ department.id }}"/>
         <ul>
             <li><label for="title">Название:</label></li>
-            <li><input id="title" name="title" type="text" value="{{ department.title | escape }}" /></li>
-            <li><button type="submit">Изменить название</button></li>
+            <li><input id="title" name="title" type="text" value="{{ department.title | escape }}"/></li>
+            <li>
+                <button type="submit">Изменить название</button>
+            </li>
         </ul>
     </form>
 
@@ -13,27 +15,27 @@
     {% include "departments.add.employee.twig" %}
     {% if currentEmployees %}
         <form method="post" action="/departments/employees/remove">
-            <input type="hidden" name="department_id" value="{{ department.id }}" />
+            <input type="hidden" name="department_id" value="{{ department.id }}"/>
             <button type="submit">Убрать выбранных сотрудников из отдела</button>
             <table>
-            <thead>
-            <tr>
-                <td>№</td>
-                <td>Фио</td>
-            </tr>
-            </thead>
-            <tbody>
-            {% for employee in currentEmployees %}
+                <thead>
                 <tr>
-                    <td>{{ employee.id }}</td>
-                    <td>
-                        <input type="checkbox" name="employee_ids[]" value="{{ employee.id }}" />
-                        <a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
-                    </td>
+                    <td>№</td>
+                    <td>Фио</td>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for employee in currentEmployees %}
+                    <tr>
+                        <td>{{ employee.id }}</td>
+                        <td>
+                            <input type="checkbox" name="employee_ids[]" value="{{ employee.id }}"/>
+                            <a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </form>
     {% else %}
         Список сотрудников отдела пуст.

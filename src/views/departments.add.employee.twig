@@ -1,18 +1,18 @@
 {% if availableEmployees %}
-<form method="post" action="/departments/employees/">
-    <input type="hidden" name="department_id" value="{{ department.id }}" />
-    <ul>
-        <li><label for="addEmployee">Выберите сотрудников:</label></li>
-        <li>
-            <select id="addEmployee" name="employee_ids[]" multiple>
-            {% for employee in availableEmployees %}
-                <option value="{{ employee.id }}">{{ employee.title }}</option>
-            {% endfor %}
-            </select>
-        </li>
-        <li>
-            <button type="submit">Добавить сотрудников</button>
-        </li>
-    </ul>
-</form>
+    <form method="post" action="/departments/employees/">
+        <input type="hidden" name="department_id" value="{{ department.id }}"/>
+        <ul>
+            <li><label for="addEmployee">Выберите сотрудников:</label></li>
+            <li>
+                <select id="addEmployee" name="employee_ids[]" multiple>
+                    {% for employee in availableEmployees %}
+                        <option value="{{ employee.id }}">{{ employee.title }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li>
+                <button type="submit">Добавить сотрудников</button>
+            </li>
+        </ul>
+    </form>
 {% endif %}

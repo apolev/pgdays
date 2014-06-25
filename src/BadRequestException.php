@@ -1,5 +1,6 @@
 <?php
 
-class BadRequestException extends Exception {
+class BadRequestException extends Exception
+{
 
 }

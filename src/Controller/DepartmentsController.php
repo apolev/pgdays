@@ -72,7 +72,7 @@ class DepartmentsController extends ControllerAbstract
         $department   = $this->getDepartment($request->post('department_id'));
         $db           = $this->container->getDb();
 
-        foreach($employee_ids as $employee_id) {
+        foreach ($employee_ids as $employee_id) {
             $db->execute('SELECT add_employee_to_department(?q, ?q)', [$department['data']['id'], $employee_id]);
         }
 
@@ -125,7 +125,7 @@ class DepartmentsController extends ControllerAbstract
 
     private function getDepartment($id)
     {
-        $id = (int) $id;
+        $id = (int)$id;
         if (!$id) {
             throw new BadRequestException();
         }

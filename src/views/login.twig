@@ -1,17 +1,19 @@
 {% extends "layout.twig" %}
 {% block content %}
-<div id="login">
-    {% if error_message %}
-        <div class="error">{{  error_message | striptags }} </div>
-    {% endif %}
-    <form method="post" action="/auth">
-        <ul>
-            <li><label for="login">Логин:</label></li>
-            <li><input id="login" name="login" type="text" /></li>
-            <li><label for="password">Пароль:</label></li>
-            <li><input id="password" name="password" type="password" /></li>
-            <li><button type="submit">Войти</button></li>
-        </ul>
-    </form>
-</div>
+    <div id="login">
+        {% if error_message %}
+            <div class="error">{{ error_message | striptags }} </div>
+        {% endif %}
+        <form method="post" action="/auth">
+            <ul>
+                <li><label for="login">Логин:</label></li>
+                <li><input id="login" name="login" type="text"/></li>
+                <li><label for="password">Пароль:</label></li>
+                <li><input id="password" name="password" type="password"/></li>
+                <li>
+                    <button type="submit">Войти</button>
+                </li>
+            </ul>
+        </form>
+    </div>
 {% endblock %}
