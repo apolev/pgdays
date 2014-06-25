@@ -60,6 +60,22 @@ class EmployeesController extends ControllerAbstract
         return new RedirectResponse('/employees');
     }
 
+    /**
+     * @route POST /employees/remove
+     */
+    public function doRemove(Request $request)
+    {
+        $ids = $request->post('ids', []);
+        $db  = $this->container->getDb();
+
+        $db->execute(
+            'SELECT remove_employees(array[?l]::integer[])',
+            [$ids]
+        );
+
+        return new RedirectResponse('/employees');
+    }
+
     public function getEmployee($id)
     {
         $id = (int) $id;

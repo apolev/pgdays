@@ -80,6 +80,22 @@ class DepartmentsController extends ControllerAbstract
     }
 
     /**
+     * @route POST /departments/remove
+     */
+    public function doRemove(Request $request)
+    {
+        $ids = $request->post('ids', []);
+        $db  = $this->container->getDb();
+
+        $db->execute(
+            'SELECT remove_departments(array[?l]::integer[])',
+            [$ids]
+        );
+
+        return new RedirectResponse('/departments');
+    }
+
+    /**
      * @route POST /departments/employees/remove
      */
     public function doRemoveEmployee(Request $request)

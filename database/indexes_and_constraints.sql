@@ -16,17 +16,17 @@ CREATE UNIQUE INDEX department_employees_emp_dep_uq_idx
 
 CREATE UNIQUE INDEX departments_title_uq_idx
   ON departments
-  USING BTREE (title)
+  USING BTREE (title) WHERE NOT is_deleted
 ;
 
 CREATE UNIQUE INDEX employees_title_uq_idx
   ON employees
-  USING BTREE (title)
+  USING BTREE (title) WHERE NOT is_deleted
 ;
 
 CREATE UNIQUE INDEX logins_login_uq_idx
   ON logins
-  USING BTREE (login)
+  USING BTREE (login) WHERE NOT is_deleted
 ;
 
 -- Индексы

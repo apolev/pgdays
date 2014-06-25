@@ -28,7 +28,7 @@
                     <td>{{ employee.id }}</td>
                     <td>
                         <input type="checkbox" name="employee_ids[]" value="{{ employee.id }}" />
-                        <a href="/employee/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
+                        <a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
                     </td>
                 </tr>
             {% endfor %}

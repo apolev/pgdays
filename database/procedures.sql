@@ -121,8 +121,6 @@ CREATE OR REPLACE FUNCTION "get_employees" ("lookup_id" integer default null, "l
   $body$
   BEGIN
     RETURN QUERY
---select de.employee_id, array_to_string(array_agg(d.title), ', ') from departments_employees as de inner join departments as d on d.id = de.department_id group by 1;
-
     SELECT *
       FROM employees
       WHERE NOT is_deleted
@@ -130,8 +128,30 @@ CREATE OR REPLACE FUNCTION "get_employees" ("lookup_id" integer default null, "l
       ORDER BY id
       LIMIT "limit"
     ;
+  END;
+$body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "remove_employees" (ids integer array)
+    RETURNS void AS
+    $body$
+  BEGIN
+      UPDATE employees
+      SET is_deleted = TRUE,
+          deleted_at = current_timestamp(1)
+      FROM unnest(ids) AS id_to_delete
+      WHERE id = id_to_delete;
+  END;
+$body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "remove_departments" (ids integer array)
+    RETURNS void AS
+    $body$
+  BEGIN
+      UPDATE departments
+      SET is_deleted = TRUE,
+          deleted_at = current_timestamp(1)
+      FROM unnest(ids) AS id_to_delete
+      WHERE id = id_to_delete;
   END;
 $body$ LANGUAGE plpgsql;
 

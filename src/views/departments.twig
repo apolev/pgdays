@@ -3,6 +3,8 @@
     {% include "departments.add.twig" %}
     <h2>Список отделов.</h2>
     {% if departments %}
+    <form action="/departments/remove" method="post">
+        <button type="submit">Удалить выбранные отделы</button>
         <table>
             <thead>
                 <tr>
@@ -14,11 +16,15 @@
             {% for department in departments %}
                 <tr>
                     <td>{{ department.id }}</td>
-                    <td><a href="/departments/edit/?id={{ department.id }}">{{ department.title | escape }}</a></td>
+                    <td>
+                        <input type="checkbox" name="ids[]" value="{{ department.id }}" />
+                        <a href="/departments/edit/?id={{ department.id }}">{{ department.title | escape }}</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+    </form>
     {% else %}
         Список отделов пуст.
     {% endif %}

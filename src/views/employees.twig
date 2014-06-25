@@ -3,6 +3,8 @@
     {% include "employees.add.twig" %}
     <h2>Список  сотрудников.</h2>
     {% if employees %}
+    <form action="/employees/remove" method="post">
+        <button type="submit">Удалить выбранных сотрудников</button>
         <table>
             <thead>
             <tr>
@@ -14,11 +16,15 @@
             {% for employee in employees %}
                 <tr>
                     <td>{{ employee.id }}</td>
-                    <td><a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a></td>
+                    <td>
+                        <input type="checkbox" name="ids[]" value="{{ employee.id }}" />
+                        <a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+    </form>
     {% else %}
         Список сотрудников пуст.
     {% endif %}
