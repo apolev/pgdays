@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+{% block content %}
+    {% include "employees.add.twig" %}
+    <h2>Список  сотрудников.</h2>
+    {% if employees %}
+        <table>
+            <thead>
+            <tr>
+                <td>№</td>
+                <td>ФИО</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for employee in employees %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td><a href="/employees/edit/?id={{ employee.id }}">{{ employee.title | escape }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Список сотрудников пуст.
+    {% endif %}
+{% endblock %}

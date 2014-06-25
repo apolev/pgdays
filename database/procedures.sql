@@ -106,6 +106,25 @@ CREATE OR REPLACE FUNCTION remove_employee_from_department (from_department_id i
     END;
   $body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "get_employees" ("lookup_id" integer default null, "limit" integer default null)
+  RETURNS SETOF "employees" AS
+  $body$
+  BEGIN
+    RETURN QUERY
+--select de.employee_id, array_to_string(array_agg(d.title), ', ') from departments_employees as de inner join departments as d on d.id = de.department_id group by 1;
+
+    SELECT *
+      FROM employees
+      WHERE NOT is_deleted
+        AND (lookup_id IS NULL OR id = lookup_id)
+      ORDER BY id
+      LIMIT "limit"
+    ;
+
+
+  END;
+$body$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION "add_login" (login varchar, password varchar)
   RETURNS integer AS
   $body$
