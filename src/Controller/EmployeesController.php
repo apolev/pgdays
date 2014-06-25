@@ -35,13 +35,48 @@ class EmployeesController extends ControllerAbstract
         return new RedirectResponse('/employees/');
     }
 
-    public function edit()
+    /**
+     * @route GET /employees/edit
+     */
+    public function edit(Request $request)
     {
+        $employee = $this->getEmployee($request->get('id'));
 
+        return new HtmlResponse(200, $this->twig->render('employees.edit.twig', ['employee' => $employee]));
     }
 
-    public function doEdit()
+    /**
+     * @route POST /employees/edit
+     */
+    public function doEdit(Request $request)
     {
+        $id       = $request->post('id');
+        $title    = $request->post('title');
+        $employee = $this->getEmployee($id);
+        $db       = $this->container->getDb();
 
+        $db->execute('SELECT edit_employee(?q, ?q)', [$employee['id'], $title]);
+
+        return new RedirectResponse('/employees');
+    }
+
+    public function getEmployee($id)
+    {
+        $id = (int) $id;
+        if (!$id) {
+            throw new BadRequestException();
+        }
+
+        $db       = $this->container->getDb();
+        $employee = $db->execute(
+            'SELECT * FROM get_employees(?q)',
+            [$id]
+        )->fetchOneOrFalse();
+
+        if (!$employee) {
+            throw new RouteNotFoundException();
+        }
+
+        return $employee;
     }
 }

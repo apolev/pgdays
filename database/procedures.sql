@@ -82,6 +82,16 @@ $body$
   END;
 $body$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION "edit_employee" (lookup_id integer, new_title varchar)
+    RETURNS void AS
+    $body$
+  BEGIN
+    UPDATE employees
+        SET title = new_title
+      WHERE id = lookup_id;
+  END;
+$body$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION "add_employee_to_department" (department_id integer, employee_id integer)
   RETURNS integer AS
 $body$
