@@ -18,9 +18,7 @@ pgdays
 
 2. Установить зависимости: для зависимостей я использовал composer. Если его у Вас нет, нужно установить:
 curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
-
-После установки выполнить команду: composer install.
+sudo mv composer.phar /usr/local/bin/composer После установки выполнить команду: composer install.
 
 3. Создать в корне проекта папки для логов и кэша:
 mkdir logs && mkdir cache
